@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { convertTime } from '../utils/helper';
 
 const RecipeCard = ({ recipe }) => {
     const { title, slug, cookingTime, thumbnail } = recipe.fields;
+
+    const time = convertTime(cookingTime);
+
     return (
         <div className="card">
             <div className="featured">
-                {/* image - thumbnail */}
                 <Image 
                     src={'https:' + thumbnail.fields.file.url}
                     width={600}
@@ -16,7 +19,7 @@ const RecipeCard = ({ recipe }) => {
             <div className="content">
                 <div className="info">
                     <h4>{ title }</h4>
-                    <p>Takes approx { cookingTime } mins to prepare and cook</p>
+                    <p>Takes approx { time } to prepare and cook</p>
                 </div>
                 <div className="actions">
                     <Link href={'/recipes/' + slug}><a>Cook this</a></Link>
@@ -45,17 +48,19 @@ const RecipeCard = ({ recipe }) => {
                 .info p {
                     margin: 0;
                     color: #777;
+                    font-size: 1.2rem;
                 }
                 .actions {
-                    margin-top: 20px;
+                    margin-top: 10px;
                     display: flex;
                     justify-content: flex-end;
                 }
                 .actions a {
                     color: #fff;
                     background: #f01b29;
-                    padding: 16px 24px;
+                    padding: 16px 16px;
                     text-decoration: none;
+                    font-size: 1.2rem;
                 }
             `}</style>
         </div>

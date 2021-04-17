@@ -2,6 +2,7 @@ import { createClient } from 'contentful'
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Skeleton from '../../components/Skeleton';
+import { convertTime } from '../../utils/helper';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -52,6 +53,8 @@ export default function RecipeDetails({ recipe }) {
   if(!recipe) return <Skeleton />
 
   const { featuredImage, title, cookingTime, ingredients, method } = recipe.fields;
+
+  const time = convertTime(cookingTime);
   
   return (
     <div>
@@ -65,7 +68,7 @@ export default function RecipeDetails({ recipe }) {
       </div>
 
       <div className="info">
-        <p>Takes about { cookingTime } mins to cook.</p>
+        <p>Takes about { time } to cook.</p>
         <h3>Ingedients:</h3>
 
         {ingredients.map(ing => (
