@@ -31,7 +31,9 @@ export const getStaticProps = async ({ params }) => {
   })
 
   return {
-    props: { recipe: items[0] }
+    props: { recipe: items[0] },
+    // incremental static regeneration in one second - triggers on page visit
+    revalidate: 1
   }
 
 }

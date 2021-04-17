@@ -11,9 +11,9 @@ export async function getStaticProps() {
   const res = await client.getEntries({ content_type: 'recipe' });
 
   return {
-    props: {
-      recipes: res.items
-    }
+    props: { recipes: res.items },
+    // incremental static regeneration in one second - triggers on page visit
+    revalidate: 1
   }
 
 }
